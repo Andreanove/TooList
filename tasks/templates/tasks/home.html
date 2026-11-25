@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/pages.css">
-<title>Beranda - Taskie</title>
+<link rel="stylesheet" href="{% static 'accounts/base.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/components.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/pages.css' %}">
+<title>Beranda - TooList</title>
 </head>
 <body data-page="home">
-<div id="nav"></div>
+{% include "tasks/partials/navbar.html" %}
 <main>
 
   <!-- Kartu maskot + level -->
@@ -41,7 +42,7 @@
   </section>
 
 </main>
-<script src="js/common.js"></script>
-<script src="js/home.js"></script>
+<script src="{% static 'accounts/common.js' %}"></script>
+<script src="{% static 'accounts/navigation.js' %}"></script>
 </body>
 </html>

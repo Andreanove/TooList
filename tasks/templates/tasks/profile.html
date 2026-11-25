@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="{% static 'accounts/base.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/components.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/pages.css' %}">
 <title>Profil - Taskie</title>
 </head>
 <body data-page="profile">
-<div id="nav"></div>
+{% include "tasks/partials/navbar.html" %}
 <main>
 
   <!-- Statistik -->
@@ -52,7 +53,8 @@
   </div>
 
 </main>
-<script src="js/common.js"></script>
-<script src="js/profile.js"></script>
+<script src="{% static 'accounts/common.js' %}"></script>
+<script src="{% static 'accounts/navigation.js' %}"></script>
+<script src="{% static 'accounts/profile.js' %}"></script>
 </body>
 </html>

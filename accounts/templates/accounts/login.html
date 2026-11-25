@@ -17,16 +17,17 @@
     <h1>TooList</h1>
     <p class="sub">Selesaikan tugas, kumpulkan XP.</p>
 
-    <form id="login-form">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn">Masuk</button>
-    </form>
+    <div class="auth-form">
+      <label>Username</label>
+      <input type="text" autocomplete="username">
+      <label>Sandi</label>
+      <input type="password" autocomplete="current-password">
+      <a class="btn" href="{% url 'home' %}">Ke Home</a>
+    </div>
 
     <a href="{% url 'register' %}">Belum punya akun? Daftar</a>
   </div>
 </main>
 <script src="{% static 'accounts/common.js' %}"></script>
-<script src="{% static 'accounts/auth.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,7 @@
+<nav class="nav" aria-label="Navigasi utama">
+  <span class="brand"><span data-nav-mascot aria-hidden="true"></span>TooList</span>
+  <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}on{% endif %}"><i>🏠</i>Beranda</a>
+  <a href="{% url 'tugas' %}" class="{% if request.resolver_match.url_name == 'tugas' %}on{% endif %}"><i>📋</i>Tugas</a>
+  <a href="{% url 'matriks' %}" class="{% if request.resolver_match.url_name == 'matriks' %}on{% endif %}"><i>🎯</i>Matriks</a>
+  <a href="{% url 'profil' %}" class="{% if request.resolver_match.url_name == 'profil' %}on{% endif %}"><i>👤</i>Profil</a>
+</nav>

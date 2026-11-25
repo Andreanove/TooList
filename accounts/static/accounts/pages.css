@@ -18,8 +18,8 @@
 .auth .mascot-body{width:110px}
 .auth h1{text-align:center;color:var(--green);margin-bottom:4px}
 .auth .sub{text-align:center;color:var(--sub)}
-.auth form{margin:12px 0 16px}
-.auth form .btn{width:100%;margin-top:20px}
+.auth-form{margin:12px 0 16px}
+.auth-form .btn{display:block;width:100%;margin-top:20px;text-align:center;text-decoration:none}
 .auth>a{display:block;text-align:center}
 
 /* home */
