@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'accounts/base.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/components.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/base.css' %}">
+<title>Masuk - TooList</title>
 </head>
-<body>
-    
+<body data-page="login">
+<main>
+  <div class="auth card">
+    <div class="mascot"><div class="mascot-body" id="mascot"></div></div>
+    <h1>TooList</h1>
+    <p class="sub">Selesaikan tugas, kumpulkan XP.</p>
+
+    <form id="login-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <label>Username</label>
+      <input type="text" name="username" required autocomplete="username">
+      <label>Sandi</label>
+      <input type="password" name="password" required autocomplete="current-password">
+      <button class="btn">Masuk</button>
+    </form>
+
+    <a href="{% url 'register' %}">Belum punya akun? Daftar</a>
+  </div>
+</main>
+<script src="{% static 'accounts/common.js' %}"></script>
+<script src="{% static 'accounts/auth.js' %}"></script>
 </body>
 </html>
