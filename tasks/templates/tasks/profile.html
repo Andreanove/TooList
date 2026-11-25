@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<title>Profil - Taskie</title>
+</head>
+<body data-page="profile">
+<div id="nav"></div>
+<main>
+
+  <!-- Statistik -->
+  <section class="card">
+    <div class="card-head">
+      <h2>Statistik <span id="username"></span></h2>
+      <span class="pill lv">⭐ Level <span id="level"></span></span>
+    </div>
+    <div class="stats">
+      <div class="stat y"><b id="total"></b>Total</div>
+      <div class="stat g"><b id="done"></b>Selesai</div>
+      <div class="stat r"><b id="failed"></b>Gagal</div>
+    </div>
+    <div class="pct-row"><span>Selesai</span><span id="done-pct" style="color:var(--green)"></span></div>
+    <div class="bar"><i id="done-bar"></i></div>
+    <div class="pct-row"><span>Gagal</span><span id="failed-pct" style="color:var(--red)"></span></div>
+    <div class="bar red"><i id="failed-bar"></i></div>
+    <p class="muted" style="margin-top:14px">Gagal = tugas yang tanggalnya sudah lewat dan belum selesai.</p>
+  </section>
+
+  <div class="two">
+    <!-- Ganti username -->
+    <form class="card" id="username-form">
+      <h2>Ganti username</h2>
+      <label>Username baru</label>
+      <input type="text" name="username" required maxlength="20">
+      <button class="btn btn-cyan" style="margin-top:16px">Simpan</button>
+    </form>
+
+    <!-- Ganti sandi -->
+    <form class="card" id="password-form">
+      <h2>Ganti sandi</h2>
+      <label>Sandi lama</label>
+      <input type="password" name="old" required>
+      <label>Sandi baru</label>
+      <input type="password" name="new" required>
+      <button class="btn btn-pink" style="margin-top:16px">Simpan</button>
+    </form>
+  </div>
+
+</main>
+<script src="js/common.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

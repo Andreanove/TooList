@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<title>Matriks Eisenhower - Taskie</title>
+</head>
+<body data-page="matrix">
+<div id="nav"></div>
+<main>
+  <div class="card-head">
+    <h2>Matriks Eisenhower</h2>
+    <span class="muted">Seret tugas antar kotak untuk mengubah prioritas</span>
+  </div>
+
+  <!-- 4 kuadran. data-urgent dan data-important dibaca oleh js/matrix.js -->
+  <div class="matrix">
+    <div class="quad q1" data-urgent="true" data-important="true">
+      <h3>Lakukan sekarang</h3><small>Mendesak + Penting</small>
+      <div class="items"></div>
+    </div>
+    <div class="quad q2" data-urgent="false" data-important="true">
+      <h3>Jadwalkan</h3><small>Penting, tidak mendesak</small>
+      <div class="items"></div>
+    </div>
+    <div class="quad q3" data-urgent="true" data-important="false">
+      <h3>Delegasikan</h3><small>Mendesak, tidak penting</small>
+      <div class="items"></div>
+    </div>
+    <div class="quad q4" data-urgent="false" data-important="false">
+      <h3>Abaikan</h3><small>Tidak mendesak, tidak penting</small>
+      <div class="items"></div>
+    </div>
+  </div>
+</main>
+<script src="js/common.js"></script>
+<script src="js/matrix.js"></script>
+</body>
+</html>

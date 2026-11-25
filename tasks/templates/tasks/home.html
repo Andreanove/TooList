@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<title>Beranda - Taskie</title>
+</head>
+<body data-page="home">
+<div id="nav"></div>
+<main>
+
+  <!-- Kartu maskot + level -->
+  <section class="card">
+    <div class="mascot">
+      <div class="mascot-body" id="mascot"></div>
+      <div class="bubble" id="bubble"></div>
+    </div>
+    <div class="chips">
+      <div class="pill lv">⭐ Level <span id="level"></span></div>
+      <div class="pill xp">⚡ <span id="xp"></span> XP</div>
+      <div class="pill fire">✅ <span id="done"></span> selesai</div>
+    </div>
+    <div class="xp-row">
+      <div class="bar cyan"><i id="xp-bar"></i></div>
+      <p class="muted" id="xp-note" style="margin-top:6px;font-size:14px"></p>
+    </div>
+  </section>
+
+  <!-- Daftar tugas hari ini -->
+  <section class="card">
+    <div class="card-head"><h2>Tugas hari ini</h2></div>
+    <form class="quick" id="quick-form">
+      <input type="text" name="title" placeholder="Tulis tugas baru, lalu tekan Enter" maxlength="80">
+      <button class="btn btn-lime">Tambah</button>
+    </form>
+    <div id="list" style="margin-top:16px"></div>
+  </section>
+
+</main>
+<script src="js/common.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

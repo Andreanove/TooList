@@ -13,7 +13,4 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-@login_required
-def home(request):
-    return render(request, 'home.html')
 
