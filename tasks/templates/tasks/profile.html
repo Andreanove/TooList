@@ -17,7 +17,7 @@
   <!-- Statistik -->
   <section class="card">
     <div class="card-head">
-      <h2>Statistik <span id="username"></span></h2>
+      <h2>Statistik <span id="username">{{ user.username }}</span></h2>
       <span class="pill lv">⭐ Level <span id="level"></span></span>
     </div>
     <div class="stats">
@@ -37,7 +37,7 @@
     <form class="card" id="username-form">
       <h2>Ganti username</h2>
       <label>Username baru</label>
-      <input type="text" name="username" required maxlength="20">
+      <input type="text" name="username" placeholder="{{ user.username }}" required maxlength="20">
       <button class="btn btn-cyan" style="margin-top:16px">Simpan</button>
     </form>
 
