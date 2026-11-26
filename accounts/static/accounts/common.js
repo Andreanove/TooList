@@ -31,6 +31,41 @@ const UI = {
       setTimeout(() => particle.remove(), 900);
     }
   },
+
+  // popup untuk tambah tugas (task = null) atau edit tugas (task = data tugasnya)
+  taskModal(task, onDone) {
+    const t = task || { title: '', desc: '', date: '', urgent: false, important: false };
+    const root = document.getElementById('modal-root');
+    root.innerHTML = `<div class="overlay"><form class="card">
+      <h2>${task ? 'Edit tugas' : 'Tugas baru'}</h2>
+      <label>Judul</label><input type="text" name="title" value="${UI.esc(t.title)}" required maxlength="80">
+      <label>Catatan</label><textarea name="desc" rows="2">${UI.esc(t.desc)}</textarea>
+      <label>Tanggal</label><input type="date" name="date" value="${t.date}" required>
+      <div class="check-row">
+        <label><input type="checkbox" name="urgent" ${t.urgent ? 'checked' : ''}> Mendesak</label>
+        <label><input type="checkbox" name="important" ${t.important ? 'checked' : ''}> Penting</label>
+      </div>
+      <div class="card-head" style="margin:22px 0 0">
+        <button type="button" class="btn btn-red" id="cancel">Batal</button>
+        <button class="btn btn-lime">Simpan</button>
+      </div>
+    </form></div>`;
+
+    const close = () => root.innerHTML = '';
+    root.querySelector('#cancel').onclick = close;
+    root.querySelector('.overlay').onclick = e => { if (e.target.classList.contains('overlay')) close(); };
+    root.querySelector('form').onsubmit = e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const data = { title: f.get('title').trim(), desc: f.get('desc').trim(), date: f.get('date'),
+                     urgent: !!f.get('urgent'), important: !!f.get('important') };
+      if (task) Store.updateTask(task.id, data); else Store.createTask(data);
+      UI.toast(task ? 'Tugas diperbarui' : 'Tugas ditambahkan!');
+      close();
+      onDone();
+    };
+    root.querySelector('[name=title]').focus();
+  },
 };
 
 const Mascot = {
@@ -89,3 +124,5 @@ if (userEl) {
   const username = JSON.parse(userEl.textContent);
   Mascot.say(Mascot.greeting(username, 0, 0));
 }
+
+document.body.insertAdjacentHTML('beforeend', '<div id="fx"></div><div id="toasts"></div><div id="modal-root"></div>');
