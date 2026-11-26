@@ -17,13 +17,14 @@
     <h1>TooList</h1>
     <p class="sub">Selesaikan tugas, kumpulkan XP.</p>
 
-    <div class="auth-form">
+    <form class="auth-form" method="post">
+      {% csrf_token %}
       <label>Username</label>
-      <input type="text" autocomplete="username">
+      <input type="text" name="username" autocomplete="username">
       <label>Sandi</label>
-      <input type="password" autocomplete="current-password">
-      <a class="btn" href="{% url 'home' %}">Ke Home</a>
-    </div>
+      <input type="password" name="password" autocomplete="current-password">
+      <button class="btn" type="submit">Login</button>
+    </form>
 
     <a href="{% url 'register' %}">Belum punya akun? Daftar</a>
   </div>

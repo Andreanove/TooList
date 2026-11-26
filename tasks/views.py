@@ -1,10 +1,11 @@
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from .models import UserProfile, Task
 from django.shortcuts import get_object_or_404
 
+@login_required
 def home(request):
     
     user = User.objects.first()
