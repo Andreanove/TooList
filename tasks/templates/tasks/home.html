@@ -21,24 +21,52 @@
       <div class="bubble" id="bubble"></div>
     </div>
     <div class="chips">
-      <div class="pill lv">⭐ Level <span id="level"></span></div>
-      <div class="pill xp">⚡ <span id="xp"></span> XP</div>
-      <div class="pill fire">✅ <span id="done"></span> selesai</div>
+      <div class="pill lv">⭐ Level <span id="level">{{ profile.level }}</span></div>
+      <div class="pill xp">⚡ <span id="xp">{{ profile.xp }}</span> XP</div>
+      <div class="pill fire">✅ <span id="done">{{ done_count }}</span> selesai</div>
     </div>
     <div class="xp-row">
-      <div class="bar cyan"><i id="xp-bar"></i></div>
-      <p class="muted" id="xp-note" style="margin-top:6px;font-size:14px"></p>
+      <div class="bar cyan"> <i id="xp-bar" style="width: {{ profile.progress_bar }}%;"></i>
+      </div>
+      <p class="muted" id="xp-note" style="margin-top:6px;font-size:14px">{{ profile.sisa_xp }} XP lagi menuju Level {{ profile.level|add:1 }}</p>
     </div>
   </section>
 
   <!-- Daftar tugas hari ini -->
   <section class="card">
     <div class="card-head"><h2>Tugas hari ini</h2></div>
-    <form class="quick" id="quick-form">
+
+    <form class="quick" id="quick-form" method="POST">
+      {% csrf_token %}
       <input type="text" name="title" placeholder="Tulis tugas baru, lalu tekan Enter" maxlength="80">
-      <button class="btn btn-lime">Tambah</button>
+      <button class="btn btn-lime" type="submit">Tambah</button>
     </form>
-    <div id="list" style="margin-top:16px"></div>
+
+    <div id="list" style="margin-top:16px">
+      {% for item in tasks %}
+      <div class="task {% if item.is_done %}done{% endif %}">
+      <form class="task-actions" method="POST" action="{% url 'toggle_task' item.id %}">
+        {% csrf_token %}
+        <input type= "checkbox" name="is_done" onchange="this.form.submit()" {% if item.is_done %}checked{% endif %}>
+      </form>
+
+      <div class="body">
+        <div class="title">{{ item.title }}</div>
+        <div class="meta">{% if item.is_urgent %} <span class="chip u">URGENT</span> {% endif %} {% if item.is_important %} <span class="chip i">PENTING</span> {% endif %}</div>
+      </div>
+
+      <div class="acts">
+        <form class="task-actions" method="POST" action="{% url 'delete_task' item.id %}">
+          {% csrf_token %}
+          <button class="btn btn-sm del" type="submit">✕</button>
+        </form>
+      </div>
+      </div>
+      {% empty %}
+      <p class="empty">Belum ada tugas hari ini. Yuk, tambah tugas pertamamu di atas!</p>
+      {% endfor %}
+    </div>
+
   </section>
 
 </main>
