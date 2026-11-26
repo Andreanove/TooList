@@ -4,4 +4,5 @@
   <a href="{% url 'tugas' %}" class="{% if request.resolver_match.url_name == 'tugas' %}on{% endif %}"><i>📋</i>Tugas</a>
   <a href="{% url 'matriks' %}" class="{% if request.resolver_match.url_name == 'matriks' %}on{% endif %}"><i>🎯</i>Matriks</a>
   <a href="{% url 'profil' %}" class="{% if request.resolver_match.url_name == 'profil' %}on{% endif %}"><i>👤</i>Profil</a>
+  <a href="{% url 'logout' %}" class="{% if request.resolver_match.url_name == 'logout' %}on{% endif %}"><i>🚪</i>Keluar</a>
 </nav>

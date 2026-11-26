@@ -1,9 +1,14 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from .models import UserProfile, Task
 from django.shortcuts import get_object_or_404
+
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
 
 @login_required
 def home(request):
