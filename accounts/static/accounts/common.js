@@ -48,36 +48,44 @@ const Mascot = {
     <circle cx="25" cy="68" r="6" fill="#ff8fb1" opacity=".55"/><circle cx="95" cy="68" r="6" fill="#ff8fb1" opacity=".55"/>
   </svg>`,
 
-  pokes: ['Hehe, geli!', 'Aku siap menemani kamu!', 'Semangat hari ini!'],
-  random(list) {
-    return list[Math.floor(Math.random() * list.length)];
+  cheers: ['Kerja bagus! 🎉', 'Mantap, lanjut terus!', 'Satu tugas beres!', 'Kamu keren banget!', 'XP bertambah!'],
+  pokes: ['Hehe, geli!', 'Ayo kerjakan satu tugas lagi!', 'Aku siap menemani kamu!', 'Semangat hari ini!'],
+  random: list => list[Math.floor(Math.random() * list.length)],
+
+  // kalimat sapaan sesuai jam
+  greeting(name, tasksLeft, tasksTotal) {
+    const h = new Date().getHours();
+    const hello = h < 11 ? 'Selamat pagi' : h < 15 ? 'Selamat siang' : h < 18 ? 'Selamat sore' : 'Selamat malam';
+    const msg = !tasksTotal ? 'Belum ada tugas hari ini. Tambah satu yuk!'
+      : tasksLeft ? `Ada ${tasksLeft} tugas hari ini. Yuk, kita mulai!`
+      : 'Semua tugas hari ini beres. Waktunya santai! 🎉';
+    return `${hello}, ${name}! ${msg}`;
   },
+  // pasang maskot ke <div id="mascot"> dan aktifkan klik
   mount() {
-    const element = document.getElementById('mascot');
-    if (!element) return;
-    element.innerHTML = this.svg();
-    element.onclick = event => {
-      this.hop();
-      this.say(this.random(this.pokes));
-      UI.burst(event.clientX, event.clientY);
-    };
+    const el = document.getElementById('mascot');
+    if (!el) return;
+    el.innerHTML = this.svg();
+    el.onclick = e => { this.hop(); this.say(this.random(this.pokes)); UI.burst(e.clientX, e.clientY); };
   },
-  say(message) {
-    const bubble = document.getElementById('bubble');
-    if (!bubble) return;
-    bubble.textContent = message;
-    bubble.classList.remove('say');
-    void bubble.offsetWidth;
-    bubble.classList.add('say');
+  say(text) {                                    // ganti teks di balon ucapan
+    const b = document.getElementById('bubble');
+    if (!b) return;
+    b.textContent = text;
+    b.classList.remove('say'); void b.offsetWidth; b.classList.add('say');
   },
-  hop() {
-    const element = document.getElementById('mascot');
-    if (!element) return;
-    element.classList.remove('hop');
-    void element.offsetWidth;
-    element.classList.add('hop');
+  hop() {                                        // maskot melompat
+    const m = document.getElementById('mascot');
+    if (!m) return;
+    m.classList.remove('hop'); void m.offsetWidth; m.classList.add('hop');
   },
+  cheer() { this.hop(); this.say(this.random(this.cheers)); },
 };
 
 document.body.insertAdjacentHTML('beforeend', '<div id="fx"></div><div id="toasts"></div>');
 Mascot.mount();
+const userEl = document.getElementById('user-data');
+if (userEl) {
+  const username = JSON.parse(userEl.textContent);
+  Mascot.say(Mascot.greeting(username, 0, 0));
+}
