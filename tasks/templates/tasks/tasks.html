@@ -19,10 +19,87 @@
   </div>
 
   <!-- Diisi oleh js/tasks.js, dikelompokkan per hari -->
-  <div id="list"></div>
+  <div id="list">
+    {% for group in group_tasks %}
+    <div class="day-title {% if group.is_today %} today {% endif %}">{{ group.label }}</div>
+    {% for item in group.tasks %}
+    <div class="task {% if item.is_done %} done {% elif item.is_failed %} failed {% endif %}">
+
+        <!-- Kiri: Form Checkbox -->
+        <form class="task-actions" method="POST" action="{% url 'toggle_task' item.id %}?next={% url 'tugas' %}">
+          {% csrf_token %}
+          <input type= "hidden" name="next" value="tugas">
+          <input type="checkbox" onchange="this.form.submit()" {% if item.is_done %}checked{% endif %}>
+        </form>
+
+        <!-- Tengah: Judul, Chip Prioritas/Status, dan Catatan -->
+        <div class="body">
+          <div class="title">{{ item.title }}</div>
+          <div class="meta">
+                {% if item.is_urgent %} <span class="chip u">URGENT</span> {% endif %}
+                {% if item.is_important %} <span class="chip i">PENTING</span>{% endif %}
+                {% if item.is_failed %} <span class="chip f">GAGAL</span> {% endif %}
+                {% if item.note %}{{ item.note }}{% endif %}
+          </div>
+        </div>
+
+      <!-- Kanan: Tombol Edit & Form Hapus -->
+      <div class="acts">
+        <button type="button" class="btn btn-sm edit" data-url="{% url 'edit_task' item.id %}"
+          data-title="{{ item.title }}"
+          data-note="{{ item.note|default:'' }}"
+          data-due-date="{{ item.due_date|date:'Y-m-d' }}"
+          data-urgent="{{ item.is_urgent|yesno:'true,false' }}"
+          data-important="{{ item.is_important|yesno:'true,false' }}">✎</button>
+
+        <form class="task-actions" method="POST" action="{% url 'delete_task' item.id %}?next={% url 'tugas' %}">
+          {% csrf_token %}
+          <input type= "hidden" name="next" value="tugas">
+          <button class="btn btn-sm del" type="submit">✕</button>
+        </form>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  {% empty %}
+    <div class="empty">
+      <p>Belum ada tugas. Klik tombol + Tugas baru di atas!</p>
+    </div>
+  {% endfor %}
+  </div>
+
+
+  
 </main>
 <script src="{% static 'accounts/common.js' %}"></script>
 <script src="{% static 'accounts/navigation.js' %}"></script>
-<script src="{% static 'accounts/tasks.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const csrfToken = "{{ csrf_token }}";
+
+    // 1. Event saat tombol tambah (#add-btn) diklik
+    document.getElementById('add-btn')?.addEventListener('click', () => {
+        UI.taskModal(null, "{% url 'tugas' %}", csrfToken);
+    });
+
+    // 2. Event saat tombol pensil (.edit-task-btn) diklik
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.edit');
+        if (!btn) return;
+
+        const dataTugas = {
+            title: btn.dataset.title,
+            note: btn.dataset.note,
+            due_date: btn.dataset.dueDate,
+            is_urgent: btn.dataset.urgent === 'True',
+            is_important: btn.dataset.important === 'True'
+        };
+
+        UI.taskModal(dataTugas, btn.dataset.url, csrfToken);
+    });
+});
+</script>
+<!-- <script src="{% static 'accounts/tasks.js' %}"></script>  di hide idak menimpa daftar tugas dari Django. -->
 </body>
 </html>

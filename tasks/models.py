@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -28,6 +29,14 @@ class Task(models.Model):
     is_urgent = models.BooleanField(default=False)
     is_important = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    note = models.TextField(blank=True, default="") #nemabahkan ini supaya note tidak wajib diisi
+    due_date = models.DateField(null=True, blank=True) # menambhakan ini untuk menympan tanggal target status
+
+    @property
+    def is_failed(self):
+        if not self.is_done and self.due_date and self.due_date < timezone.localdate():
+            return True
+
 
     def __str__(self):
         return self.title
